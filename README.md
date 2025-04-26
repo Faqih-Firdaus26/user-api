@@ -76,9 +76,11 @@ Proyek ini adalah sebuah RESTful API untuk melakukan operasi CRUD (Create, Read,
 8. **Jalankan server Laravel:**
     ```bash
     php artisan serve
+    jika server terlalu lambat bisa menjalankan perintah :
+    php artisan serve --port=8080 (sesuaikan port sesuai kebutuhan)
     ```
 
-API sekarang dapat diakses di http://127.0.0.1:8000.
+API sekarang dapat diakses di http://127.0.0.1:8000. atau http://127.0.0.1:8080
 
 ## 🔍 Rute API
 
@@ -92,9 +94,9 @@ Menampilkan daftar semua pengguna.
 [
     {
         "id": 1,
-        "name": "John Doe",
-        "email": "john@example.com",
-        "age": 30,
+        "name": "Faqih",
+        "email": "Faqih@example.com",
+        "age": 21,
         "created_at": "2025-04-25T12:00:00.000000Z",
         "updated_at": "2025-04-25T12:00:00.000000Z"
     }
@@ -109,10 +111,10 @@ Membuat pengguna baru.
 
 ```json
 {
-    "name": "Jane Doe",
-    "email": "jane@example.com",
+    "name": "Faqih Ganteng",
+    "email": "FaqihGanteng@example.com",
     "password": "password123",
-    "age": 28
+    "age": 21
 }
 ```
 
@@ -121,9 +123,9 @@ Membuat pengguna baru.
 ```json
 {
     "id": 2,
-    "name": "Jane Doe",
-    "email": "jane@example.com",
-    "age": 28,
+    "name": "Faqih Ganteng",
+    "email": "FaqihGanteng@example.com",
+    "age": 21,
     "created_at": "2025-04-25T12:00:00.000000Z",
     "updated_at": "2025-04-25T12:00:00.000000Z"
 }
@@ -138,9 +140,9 @@ Menampilkan detail pengguna berdasarkan ID.
 ```json
 {
     "id": 1,
-    "name": "John Doe",
-    "email": "john@example.com",
-    "age": 30,
+    "name": "Faqih",
+    "email": "Faqih@example.com",
+    "age": 21,
     "created_at": "2025-04-25T12:00:00.000000Z",
     "updated_at": "2025-04-25T12:00:00.000000Z"
 }
@@ -154,9 +156,9 @@ Mengupdate data pengguna berdasarkan ID.
 
 ```json
 {
-    "name": "Johnathan Doe",
-    "email": "johnathan@example.com",
-    "age": 31
+    "name": "Faqih Cuy",
+    "email": "Faqih Cuy@example.com",
+    "age": 21
 }
 ```
 
@@ -165,9 +167,9 @@ Mengupdate data pengguna berdasarkan ID.
 ```json
 {
     "id": 1,
-    "name": "Johnathan Doe",
-    "email": "johnathan@example.com",
-    "age": 31,
+    "name": "Faqih Cuy",
+    "email": "FaqihCuy@example.com",
+    "age": 21,
     "created_at": "2025-04-25T12:00:00.000000Z",
     "updated_at": "2025-04-25T12:30:00.000000Z"
 }
@@ -192,10 +194,6 @@ Aplikasi ini juga menyediakan antarmuka web sederhana untuk mengelola data pengg
 ```
 http://127.0.0.1:8000/users
 ```
-
-## 📝 Lisensi
-
-Proyek ini dilisensikan di bawah [MIT License](https://opensource.org/licenses/MIT).
 
 ## 👨‍💻 Pembuat
 
