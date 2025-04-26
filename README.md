@@ -157,7 +157,7 @@ Mengupdate data pengguna berdasarkan ID.
 ```json
 {
     "name": "Faqih Cuy",
-    "email": "Faqih Cuy@example.com",
+    "email": "FaqihCuy@example.com",
     "age": 21
 }
 ```
