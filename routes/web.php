@@ -22,6 +22,7 @@ Route::get('/', function () {
 Route::get('/users', [UserViewController::class, 'index'])->name('users.index');
 Route::get('/users/create', [UserViewController::class, 'create'])->name('users.create');
 Route::post('/users', [UserViewController::class, 'store'])->name('users.store');
+Route::get('/users/{id}', [UserViewController::class, 'show'])->name('users.show');
 Route::get('/users/{id}/edit', [UserViewController::class, 'edit'])->name('users.edit');
 Route::put('/users/{id}', [UserViewController::class, 'update'])->name('users.update');
 Route::delete('/users/{id}', [UserViewController::class, 'destroy'])->name('users.destroy');

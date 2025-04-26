@@ -19,16 +19,19 @@ class UserViewController extends Controller
      */
     public function index()
     {
-        //
-        $response = Http::get($this->apiUrl);
-
-        // Jika API gagal
-        if ($response->failed()) {
-            return back()->with('error', 'Failed to fetch users');
+        try {
+            $response = Http::get($this->apiUrl);
+            
+            // Jika API gagal
+            if ($response->failed()) {
+                return back()->with('error', 'Gagal mengambil data pengguna dari API');
+            }
+            
+            $users = $response->json();
+            return view('users.index', compact('users'));
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        $users = $response->json();
-        return view('users.index', compact('users'));
     }
 
     /**
@@ -36,7 +39,6 @@ class UserViewController extends Controller
      */
     public function create()
     {
-        //
         return view('users.create');
     }
 
@@ -45,21 +47,25 @@ class UserViewController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-            'age' => 'required|integer|min:18',  // Menambahkan validasi umur minimal
-        ]);
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'password' => 'required|string|min:8',
+                'age' => 'required|integer|min:18',
+            ]);
 
-        $response = Http::post($this->apiUrl, $validated);
+            $response = Http::post($this->apiUrl, $validated);
 
-        if ($response->successful()) {
-            return redirect()->route('users.index')->with('success', 'User created!');
+            if ($response->successful()) {
+                return redirect()->route('users.index')->with('success', 'Pengguna berhasil ditambahkan!');
+            }
+
+            // Tampilkan pesan error dari API jika ada
+            return back()->withErrors($response->json())->withInput();
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage())->withInput();
         }
-
-        return back()->withErrors($response->json())->withInput();
     }
 
     /**
@@ -67,15 +73,18 @@ class UserViewController extends Controller
      */
     public function show(string $id)
     {
-        //
-        $response = Http::get("{$this->apiUrl}/{$id}");
+        try {
+            $response = Http::get("{$this->apiUrl}/{$id}");
 
-        if ($response->failed()) {
-            abort(404, 'User not found');
+            if ($response->failed()) {
+                return redirect()->route('users.index')->with('error', 'Pengguna tidak ditemukan');
+            }
+
+            $user = $response->json();
+            return view('users.show', compact('user'));
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        $user = $response->json();
-        return view('users.show', compact('user'));
     }
 
     /**
@@ -83,15 +92,18 @@ class UserViewController extends Controller
      */
     public function edit(string $id)
     {
-        //
-        $response = Http::get("{$this->apiUrl}/{$id}");
+        try {
+            $response = Http::get("{$this->apiUrl}/{$id}");
 
-        if ($response->failed()) {
-            abort(404, 'User not found');
+            if ($response->failed()) {
+                return redirect()->route('users.index')->with('error', 'Pengguna tidak ditemukan');
+            }
+
+            $user = $response->json();
+            return view('users.edit', compact('user'));
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        $user = $response->json();
-        return view('users.edit', compact('user'));
     }
 
     /**
@@ -99,20 +111,23 @@ class UserViewController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $id,
-            'age' => 'required|integer|min:18',
-        ]);
+        try {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'age' => 'required|integer|min:18',
+            ]);
 
-        $response = Http::put("{$this->apiUrl}/{$id}", $validated);
+            $response = Http::put("{$this->apiUrl}/{$id}", $validated);
 
-        if ($response->successful()) {
-            return redirect()->route('users.index')->with('success', 'User updated!');
+            if ($response->successful()) {
+                return redirect()->route('users.index')->with('success', 'Pengguna berhasil diperbarui!');
+            }
+
+            return back()->withErrors($response->json())->withInput();
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage())->withInput();
         }
-
-        return back()->withErrors($response->json())->withInput();
     }
 
     /**
@@ -120,13 +135,16 @@ class UserViewController extends Controller
      */
     public function destroy(string $id)
     {
-        //
-        $response = Http::delete("{$this->apiUrl}/{$id}");
+        try {
+            $response = Http::delete("{$this->apiUrl}/{$id}");
 
-        if ($response->successful()) {
-            return redirect()->route('users.index')->with('success', 'User deleted!');
+            if ($response->successful()) {
+                return redirect()->route('users.index')->with('success', 'Pengguna berhasil dihapus!');
+            }
+
+            return back()->with('error', 'Gagal menghapus pengguna.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        return back()->with('error', 'Failed to delete user.');
     }
 }

@@ -1,137 +1,202 @@
 # RESTful API CRUD User - Laravel
 
-## Deskripsi
+<p align="center">
+  <img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo">
+</p>
 
-Proyek ini adalah sebuah RESTful API untuk melakukan operasi CRUD (Create, Read, Update, Delete) pada data `User`. API ini dibangun menggunakan **Laravel** dengan fitur autentikasi dan validasi. API ini juga dapat digunakan untuk menyimpan data pengguna seperti nama, email, dan usia.
+## 📋 Deskripsi
 
-## Fitur
+Proyek ini adalah sebuah RESTful API untuk melakukan operasi CRUD (Create, Read, Update, Delete) pada data `User`. API ini dibangun menggunakan **Laravel** dengan fitur autentikasi dan validasi. API ini juga dapat digunakan untuk menyimpan data pengguna seperti nama, email, password, dan usia.
 
--   **GET** `/api/users` - Menampilkan semua pengguna.
--   **POST** `/api/users` - Membuat pengguna baru.
--   **GET** `/api/users/{id}` - Menampilkan detail pengguna berdasarkan ID.
--   **PUT** `/api/users/{id}` - Mengupdate pengguna berdasarkan ID.
--   **DELETE** `/api/users/{id}` - Menghapus pengguna berdasarkan ID.
+## ✨ Fitur
 
-## Teknologi yang Digunakan
+-   **GET** `/api/users` - Menampilkan semua pengguna
+-   **POST** `/api/users` - Membuat pengguna baru
+-   **GET** `/api/users/{id}` - Menampilkan detail pengguna berdasarkan ID
+-   **PUT** `/api/users/{id}` - Mengupdate pengguna berdasarkan ID
+-   **DELETE** `/api/users/{id}` - Menghapus pengguna berdasarkan ID
 
--   **Laravel 12.x**
+## 🚀 Teknologi yang Digunakan
+
+-   **Laravel 10.x**
 -   **PHP 8.x**
--   **MySQL** untuk database.
--   **Postman** atau **Insomnia** untuk testing API.
+-   **MySQL** untuk database
+-   **Tailwind CSS** untuk UI
+-   **Postman** atau **Insomnia** untuk testing API
 
-## Instalasi
+## 💻 Instalasi
 
 1. **Clone repository** ini:
+
     ```bash
-    git clone https://github.com/username/repo-name.git
+    git clone https://github.com/Faqih-Firdaus26/user-api
     ```
+
 2. **Masuk ke folder proyek**
-   cd repo-name
+
+    ```bash
+    cd user-api
+    ```
+
 3. **Install dependencies dengan Composer:**
-   composer install
+
+    ```bash
+    composer install
+    ```
+
 4. **Set environment variables. Salin file .env.example ke .env:**
-   cp .env.example .env
+
+    ```bash
+    cp .env.example .env
+    ```
+
 5. **Generate key aplikasi:**
-   php artisan key:generate
+
+    ```bash
+    php artisan key:generate
+    ```
+
 6. **Konfigurasi database di .env. Pastikan kamu telah mengonfigurasi database MySQL yang benar:**
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=nama_database
-   DB_USERNAME=root
-   DB_PASSWORD=
+
+    ```env
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=nama_database
+    DB_USERNAME=root
+    DB_PASSWORD=
+    ```
+
 7. **Jalankan migration untuk membuat tabel di database:**
-   php artisan migrate
+
+    ```bash
+    php artisan migrate
+    ```
+
 8. **Jalankan server Laravel:**
-   php artisan serve
+    ```bash
+    php artisan serve
+    ```
 
 API sekarang dapat diakses di http://127.0.0.1:8000.
 
-Rute API
+## 🔍 Rute API
 
-1. **GET /api/users**
-   Menampilkan daftar semua pengguna.
+### 1. **GET /api/users**
 
-Contoh Response:
+Menampilkan daftar semua pengguna.
 
-json
+**Contoh Response:**
 
+```json
 [
-{
-"id": 1,
-"name": "John Doe",
-"email": "john@example.com",
-"age": 30,
-"created_at": "2025-04-25T12:00:00.000000Z",
-"updated_at": "2025-04-25T12:00:00.000000Z"
-}
-] 2. **POST /api/users**
+    {
+        "id": 1,
+        "name": "John Doe",
+        "email": "john@example.com",
+        "age": 30,
+        "created_at": "2025-04-25T12:00:00.000000Z",
+        "updated_at": "2025-04-25T12:00:00.000000Z"
+    }
+]
+```
+
+### 2. **POST /api/users**
+
 Membuat pengguna baru.
 
-Contoh Request:
+**Contoh Request:**
 
-json
-
+```json
 {
-"name": "Jane Doe",
-"email": "jane@example.com",
-"age": 28
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "password": "password123",
+    "age": 28
 }
-Contoh Response:
+```
 
-json
+**Contoh Response:**
 
+```json
 {
-"id": 2,
-"name": "Jane Doe",
-"email": "jane@example.com",
-"age": 28,
-"created_at": "2025-04-25T12:00:00.000000Z",
-"updated_at": "2025-04-25T12:00:00.000000Z"
-} 3. **GET /api/users/{id}**
+    "id": 2,
+    "name": "Jane Doe",
+    "email": "jane@example.com",
+    "age": 28,
+    "created_at": "2025-04-25T12:00:00.000000Z",
+    "updated_at": "2025-04-25T12:00:00.000000Z"
+}
+```
+
+### 3. **GET /api/users/{id}**
+
 Menampilkan detail pengguna berdasarkan ID.
 
-Contoh Response:
+**Contoh Response:**
 
-json
-
+```json
 {
-"id": 1,
-"name": "John Doe",
-"email": "john@example.com",
-"age": 30,
-"created_at": "2025-04-25T12:00:00.000000Z",
-"updated_at": "2025-04-25T12:00:00.000000Z"
-} 4. **PUT /api/users/{id}**
+    "id": 1,
+    "name": "John Doe",
+    "email": "john@example.com",
+    "age": 30,
+    "created_at": "2025-04-25T12:00:00.000000Z",
+    "updated_at": "2025-04-25T12:00:00.000000Z"
+}
+```
+
+### 4. **PUT /api/users/{id}**
+
 Mengupdate data pengguna berdasarkan ID.
 
-Contoh Request:
+**Contoh Request:**
 
-json
-Salin kode
+```json
 {
-"name": "Johnathan Doe",
-"email": "johnathan@example.com",
-"age": 31
+    "name": "Johnathan Doe",
+    "email": "johnathan@example.com",
+    "age": 31
 }
-Contoh Response:
+```
 
-json
+**Contoh Response:**
 
+```json
 {
-"id": 1,
-"name": "Johnathan Doe",
-"email": "johnathan@example.com",
-"age": 31,
-"created_at": "2025-04-25T12:00:00.000000Z",
-"updated_at": "2025-04-25T12:30:00.000000Z"
-} 5. **DELETE /api/users/{id}**
+    "id": 1,
+    "name": "Johnathan Doe",
+    "email": "johnathan@example.com",
+    "age": 31,
+    "created_at": "2025-04-25T12:00:00.000000Z",
+    "updated_at": "2025-04-25T12:30:00.000000Z"
+}
+```
+
+### 5. **DELETE /api/users/{id}**
+
 Menghapus pengguna berdasarkan ID.
 
-Contoh Response:
+**Contoh Response:**
 
-json
-
+```json
 {
-"message": "User deleted successfully"
+    "message": "User deleted"
 }
+```
+
+## 🌐 Antarmuka Web
+
+Aplikasi ini juga menyediakan antarmuka web sederhana untuk mengelola data pengguna yang dapat diakses melalui:
+
+```
+http://127.0.0.1:8000/users
+```
+
+## 📝 Lisensi
+
+Proyek ini dilisensikan di bawah [MIT License](https://opensource.org/licenses/MIT).
+
+## 👨‍💻 Pembuat
+
+Dibuat oleh Faqih Firdaus untuk keperluan Test Fullstack Developer - PT Rimba Ananta Vikasa Indonesia.
